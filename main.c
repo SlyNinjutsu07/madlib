@@ -23,11 +23,7 @@ void print_word_options(file *madlib){
 }
 void clear_term();
 
-<<<<<<< HEAD
-void write_madlib(file *madlib, char *buffer, size_t buffer_size);
-=======
 char *concat_strings(char *s1, char *s2);
->>>>>>> 5463900d4c165524e7836f7dbecc3e440b874a79
 void words_to_fill(char *text, file *madlib);
 char *read_madlib(FILE *madlib_file, char *buffer, size_t buffer_size);
 void write_madlib(file *madlib, char *buffer, size_t buffer_size);
@@ -56,13 +52,9 @@ int main(void){
     words_to_fill(buffer, &madlibs[0]);
     printf("You have %d words to fill:\n", madlibs[0].num_words);
     printf("%s\n", buffer);
-<<<<<<< HEAD
     write_madlib(&madlibs[0], buffer, 512);
     clear_term();
     printf("Final Madlib:\n\n%s\n", buffer);
-=======
-    write_madlib(&madlibs[0], buffer);
->>>>>>> 5463900d4c165524e7836f7dbecc3e440b874a79
   }
 
 
@@ -109,7 +101,6 @@ void words_to_fill(char *text, file *madlib){
   madlib->words = head;
 }
 
-<<<<<<< HEAD
 void write_madlib(file *madlib, char *buffer, size_t buffer_size) {
   char result[buffer_size];
   result[0] = '\0';
@@ -140,27 +131,6 @@ void write_madlib(file *madlib, char *buffer, size_t buffer_size) {
 
   strcpy(buffer, result);//Copy result back to the buffer
   madlib->words = words_head;//Reset head node
-=======
-void write_madlib(file *madlib, char *buffer, size_t buffer_size){
-   char result[buffer_size];
-   char *p = buffer, *p_input;
-
-   while()
-}
-
-char *concat_strings(char *s1, char *s2){
-
-}
-
-/* sbody - s-substring */
-char *deduct_strings(char *str, char *substring){
-  char *p = str;
-  if(!(p = strstr(str, substring))) return str;
-  else
-   return str;
-
-  
->>>>>>> 5463900d4c165524e7836f7dbecc3e440b874a79
 }
 
 /* Just to clear console */
