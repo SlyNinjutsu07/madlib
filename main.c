@@ -53,7 +53,6 @@ int main(void){
     printf("You have %d words to fill:\n", madlibs[0].num_words);
     printf("%s\n", buffer);
     write_madlib(&madlibs[0], buffer, 512);
-    clear_term();
     printf("Final Madlib:\n\n%s\n", buffer);
   }
 
