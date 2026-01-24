@@ -25,7 +25,6 @@ void print_word_options(file *madlib) {
 void clear_term();
 void free_all(file arr[], int size);
 
-char *concat_strings(char *s1, char *s2);
 void words_to_fill(char *text, file *madlib);
 void read_madlib(FILE *madlib_file, char *buffer, size_t buffer_size);
 void write_madlib(file *madlib, char *buffer, size_t buffer_size);
