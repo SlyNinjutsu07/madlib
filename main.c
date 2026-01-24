@@ -25,7 +25,7 @@ void clear_term();
 
 char *concat_strings(char *s1, char *s2);
 void words_to_fill(char *text, file *madlib);
-char *read_madlib(FILE *madlib_file, char *buffer, size_t buffer_size);
+void read_madlib(FILE *madlib_file, char *buffer, size_t buffer_size);
 void write_madlib(file *madlib, char *buffer, size_t buffer_size);
 
 int main(void){
@@ -62,16 +62,14 @@ int main(void){
 
 /* Reads the text from the file into the buffer, 
  * and then returns that text */
-char *read_madlib(FILE *madlib_file, char *buffer, size_t buffer_size){
+void read_madlib(FILE *madlib_file, char *buffer, size_t buffer_size){
   //File check
   if(madlib_file == NULL){
     perror("File doesn't exit"); 
-    return ""; 
   }
 
   size_t i = fread(buffer, sizeof(char), buffer_size, madlib_file);
   buffer[i] = '\0';
-  return buffer;
 }
 
 /* Returns the # of spots to fill with words,
@@ -97,7 +95,7 @@ void words_to_fill(char *text, file *madlib){
   }
 
   madlib->num_words = count;
-  madlib->words = head;
+  madlib->words = head;//Send back to first pointer in arr
 }
 
 void write_madlib(file *madlib, char *buffer, size_t buffer_size) {
