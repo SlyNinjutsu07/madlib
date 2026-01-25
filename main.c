@@ -60,7 +60,7 @@ int main(void) {
       words_to_fill(buffer, &madlibs[index]);//Allocates to word_list
       printf("MADLIB #%d: You have %d words to fill:\n", index+1, madlibs[index].num_words);
       printf("%s\n", buffer);
-      write_madlib(&madlibs[0], buffer, 512);
+      write_madlib(&madlibs[index], buffer, 512);
       printf("\nMadlib #%d:\n%s\n", index+1, buffer);
 
       printf("Go to next (y/n)? ");
