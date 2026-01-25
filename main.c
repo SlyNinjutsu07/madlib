@@ -32,7 +32,7 @@ void write_madlib(file *madlib, char *buffer, size_t buffer_size);
 int main(void) {
 
   state s = NOT_BEGUN;
-  char buffer[512];
+  char buffer[512], input[2];
   FILE *f;
 
   int index = 0;
@@ -57,16 +57,18 @@ int main(void) {
 
       read_madlib(f, buffer, 512);//Reads the current file to buffer
 
-      words_to_fill(buffer, &madlibs[0]);//Allocates to word_list
-      printf("You have %d words to fill:\n", madlibs[0].num_words);
+      words_to_fill(buffer, &madlibs[index]);//Allocates to word_list
+      printf("MADLIB #%d: You have %d words to fill:\n", index+1, madlibs[index].num_words);
       printf("%s\n", buffer);
       write_madlib(&madlibs[0], buffer, 512);
-      printf("\nMadlib #%d:\n%s\n", index, buffer);
+      printf("\nMadlib #%d:\n%s\n", index+1, buffer);
 
       printf("Go to next (y/n)? ");
-      if(getchar() == 'y')
+      
+      if (strcmp(fgets(input, 2, stdin), "y\n") == 0)
         index++;
-      else if(getchar() == 'n') system("exit");
+      else if(strcmp(fgets(input, 2, stdin), "n\n") == 0) system("exit");
+      else exit(0);
     }
   }
 
@@ -121,6 +123,7 @@ void write_madlib(file *madlib, char *buffer, size_t buffer_size) {
   char *p_curr = buffer, *p, **words_head = madlib->words;
   int i = 0;
 
+  getchar();
   while (i < madlib->num_words && (p = strstr(p_curr, "----"))) {
     strncat(
         result, p_curr,
