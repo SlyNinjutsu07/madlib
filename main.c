@@ -32,7 +32,7 @@ void write_madlib(file *madlib, char *buffer, size_t buffer_size);
 int main(void) {
 
   state s = NOT_BEGUN;
-  char buffer[512], input[2];
+  char buffer[512], input[10];
   FILE *f;
 
   int index = 0;
@@ -65,10 +65,14 @@ int main(void) {
 
       printf("Go to next (y/n)? ");
       
-      if (strcmp(fgets(input, 2, stdin), "y\n") == 0)
+      int ch = fgetc(stdin);
+      if (ch == 'y')
         index++;
-      else if(strcmp(fgets(input, 2, stdin), "n\n") == 0) system("exit");
-      else exit(0);
+      else if(ch == 'n') exit(0);
+      else{
+        printf("\nInvalid Input. quitting...\n"); 
+        exit(0);
+      }
     }
   }
 
