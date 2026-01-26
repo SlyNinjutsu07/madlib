@@ -14,9 +14,6 @@ typedef enum {
   END,
 } state;
 
-char *displayintro(void) {
-  return "WELCOME TO MADLIB PROGRAM IN C {Press ENTER}\n";
-}
 void print_word_options(file *madlib) {
   for (int i = 1; i <= madlib->num_words; i++)
     printf("{%d}: {\"%s\"}\n", i, madlib->words[0]);
@@ -42,7 +39,7 @@ int main(void) {
       {.file_name = "madlibs/madlib3.txt"},
   };
 
-  printf("%s", displayintro());
+  printf("WELCOME TO MADLIB PROGRAM IN C {Press ENTER}: ");
 
   if (getchar() == '\n') {
     s = RUNNING;
@@ -58,17 +55,21 @@ int main(void) {
       read_madlib(f, buffer, 512);//Reads the current file to buffer
 
       words_to_fill(buffer, &madlibs[index]);//Allocates to word_list
-      printf("MADLIB #%d: You have %d words to fill:\n", index+1, madlibs[index].num_words);
+      printf("\nMADLIB #%d => You have %d words to fill:\n", index+1, madlibs[index].num_words);
       printf("%s\n", buffer);
       write_madlib(&madlibs[index], buffer, 512);
-      printf("\nMadlib #%d:\n%s\n", index+1, buffer);
+      printf("\nMadlib #%d Edit:\n%s\n", index+1, buffer);
 
       printf("Go to next (y/n)? ");
       
-      int ch = fgetc(stdin);
-      if (ch == 'y')
+      char input[10];
+      fgets(input, 10, stdin);
+      if (strcmp(input, "y\n") == 0)
         index++;
-      else if(ch == 'n') exit(0);
+      else if(strcmp(input, "n\n") == 0){
+        printf("Quitting...\n");
+        exit(0);
+      }
       else{
         printf("\nInvalid Input. quitting...\n"); 
         exit(0);
@@ -127,7 +128,6 @@ void write_madlib(file *madlib, char *buffer, size_t buffer_size) {
   char *p_curr = buffer, *p, **words_head = madlib->words;
   int i = 0;
 
-  getchar();
   while (i < madlib->num_words && (p = strstr(p_curr, "----"))) {
     strncat(
         result, p_curr,
