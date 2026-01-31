@@ -5,3 +5,5 @@ typedef struct {
   char **words;
   int num_words;
 } file;
+
+file **alloc_file(char *path);

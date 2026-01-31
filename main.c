@@ -17,18 +17,14 @@ int main(void) {
   FILE *f;
 
   int index = 0;
-  file madlibs[] = {
-      {.file_name = "madlibs/madlib1.txt"},
-      {.file_name = "madlibs/madlib2.txt"},
-      {.file_name = "madlibs/madlib3.txt"},
-  };
+  file **madlibs = alloc_file("./madlibs/");
 
   printf("WELCOME TO MADLIB PROGRAM IN C {Press ENTER}: ");
 
   if (getchar() == '\n') {
 
     while (1) {
-      f = fopen(madlibs[index].file_name, "r");
+      f = fopen(madlibs[index]->file_name, "r");
       // File check
       if (f == NULL) {
         perror("File doesn't exit");
@@ -37,10 +33,10 @@ int main(void) {
 
       read_madlib(f, buffer, 512);//Reads the current file to buffer
 
-      alloc_words(buffer, &madlibs[index]);//Allocates to word_list
-      printf("\nMADLIB #%d => You have %d words to fill:\n", index+1, madlibs[index].num_words);
+      alloc_words(buffer, madlibs[index]);//Allocates to word_list
+      printf("\nMADLIB #%d => You have %d words to fill:\n", index+1, madlibs[index]->num_words);
       printf("%s\n", buffer);
-      write_madlib(&madlibs[index], buffer, 512);
+      write_madlib(madlibs[index], buffer, 512);
       printf("\nMadlib #%d Edit:\n%s\n", index+1, buffer);
 
       printf("Go to next (y/n)? ");

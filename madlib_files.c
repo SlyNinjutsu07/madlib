@@ -5,25 +5,38 @@
 
 #include "madlib_files.h"
 
-file *alloc_file(char *folder){
-  DIR *dir = opendir(folder);
+/* Return a file* that points to the list of madlibs */
+file **alloc_file(char *path){
+  DIR *dir = opendir(path);
   if(!dir){
     perror("No valid directory\n");
     return NULL;
   }
 
   struct dirent *entry;
-  file *madlibs, *tail; 
+  int file_count;
 
-  while((entry = readdir(dir)) != NULL){
-    madlibs = (file *)malloc(sizeof(char));
-    tail = madlibs;
+  /* Count how many .txt files there are */
+  while((entry = readdir(dir))!= NULL)
+    if(strstr(entry->d_name, ".txt"))
+      file_count++;
+  if(!file_count) return NULL;
+
+  file *madlibs = (file *)malloc(file_count * sizeof(file)), *tail = madlibs;
+  char full_path[256];
+  full_path[0] = '\0';
+  strncat(full_path, path, strlen(path));
+  
+
+  while((entry = readdir(dir))!= NULL){
     if(strstr(entry->d_name, ".txt")){
-      tail->file_name = entry->d_name;
-      madlibs++;
-      madlibs = (file *)malloc(sizeof(file));
+      tail->file_name = strncat(full_path, entry->d_name, strlen(entry->d_name));
+      printf("%s\n", full_path);
+      tail++;
     }
   }
 
-  return madlibs;
+  closedir(dir);
+
+  return &madlibs;
 }
