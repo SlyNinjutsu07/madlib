@@ -43,3 +43,20 @@ file *alloc_file(char *path) {
 
   return madlibs;
 }
+
+void make_file(char *file_name){
+  if(!file_name){
+    perror("No file\n");
+    return;
+  }
+  else if(strcspn(file_name, "\n\t\\\"-") != strlen(file_name)){
+    perror("Invalid file-name. Ensure there are no:\n-New Lines\n-Tabs\n-Backslashes(\"\\\")\n-Em-dashes(\"\\\")\n");
+    return;
+  }
+
+  FILE *f = fopen(strncat(file_name, ".txt", strlen(".txt")),"w");
+  char *buffer[256];
+
+}
+
+
