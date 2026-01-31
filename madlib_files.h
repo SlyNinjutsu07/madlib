@@ -6,4 +6,4 @@ typedef struct {
   int num_words;
 } file;
 
-file **alloc_file(char *path);
+file *alloc_file(char *path);
