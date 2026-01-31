@@ -35,7 +35,6 @@ file *alloc_file(char *path) {
     if (strstr(entry->d_name, ".txt")) {
       snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
       tail->file_name = strdup(full_path);
-      printf("%s\n", full_path);
       tail++;
     }
   }
