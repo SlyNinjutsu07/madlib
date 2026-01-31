@@ -21,7 +21,7 @@ void free_all(file arr[], int size);
 int main(void) {
 
   state s = NOT_BEGUN;
-  char buffer[512], input[10];
+  char buffer[512];
   FILE *f;
 
   int index = 0;
@@ -46,7 +46,7 @@ int main(void) {
 
       read_madlib(f, buffer, 512);//Reads the current file to buffer
 
-      words_to_fill(buffer, &madlibs[index]);//Allocates to word_list
+      alloc_words(buffer, &madlibs[index]);//Allocates to word_list
       printf("\nMADLIB #%d => You have %d words to fill:\n", index+1, madlibs[index].num_words);
       printf("%s\n", buffer);
       write_madlib(&madlibs[index], buffer, 512);
