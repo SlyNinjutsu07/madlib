@@ -4,23 +4,15 @@
 
 #include "func.h"
 
-typedef enum {
-  NOT_BEGUN,
-  RUNNING,
-  END,
-} state;
-
 void print_word_options(file *madlib) {
   for (int i = 1; i <= madlib->num_words; i++)
     printf("{%d}: {\"%s\"}\n", i, madlib->words[0]);
 }
 
 void clear_term();
-void free_all(file arr[], int size);
 
 int main(void) {
 
-  state s = NOT_BEGUN;
   char buffer[512];
   FILE *f;
 
@@ -34,9 +26,8 @@ int main(void) {
   printf("WELCOME TO MADLIB PROGRAM IN C {Press ENTER}: ");
 
   if (getchar() == '\n') {
-    s = RUNNING;
 
-    while (s == RUNNING) {
+    while (1) {
       f = fopen(madlibs[index].file_name, "r");
       // File check
       if (f == NULL) {
