@@ -7,3 +7,5 @@ typedef struct {
 } file;
 
 file *alloc_file(char *path);
+
+void add_madlib_file(char *file_name);

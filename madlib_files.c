@@ -44,7 +44,7 @@ file *alloc_file(char *path) {
   return madlibs;
 }
 
-void make_file(char *file_name){
+void add_madlib_file(char *file_name){
   if(!file_name){
     perror("No file\n");
     return;
