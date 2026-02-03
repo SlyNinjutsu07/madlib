@@ -44,19 +44,35 @@ file *alloc_file(char *path) {
   return madlibs;
 }
 
+/* Allows for custom additions to the madlib folder */
 void add_madlib_file(char *file_name){
+  //Null-checking
   if(!file_name){
     perror("No file\n");
     return;
   }
-  else if(strcspn(file_name, "\n\t\\\"-") != strlen(file_name)){
-    perror("Invalid file-name. Ensure there are no:\n-New Lines\n-Tabs\n-Backslashes(\"\\\")\n-Em-dashes(\"\\\")\n");
+  else if(strcspn(file_name, "\t\\\"-") != strlen(file_name)){
+    perror("Invalid file-name. Ensure there are no:\n-Tabs\n-Backslashes(\"\\\")\n-Em-dashes(\"\\\")\n");
     return;
   }
 
-  FILE *f = fopen(strncat(file_name, ".txt", strlen(".txt")),"w");
-  char *buffer[256];
+  file_name[strcspn(file_name, "\n")] = '\0';
+  char file_new_name[36];
+  snprintf(file_new_name, sizeof file_new_name, "madlibs/%s.txt", file_name);
 
+  FILE *f = fopen(file_new_name,"w");
+  char buffer[256];
+  buffer[0] = '\0';
+
+  printf("Type out your Madlib (Please look at README for information how to type it out):\n\n");
+  fscanf(stdin, "%s", buffer);  
+  fwrite(buffer, sizeof buffer, strlen(buffer), f);
 }
 
+int main(void){
 
+  char str[16];
+  fgets(str, 16, stdin);
+  add_madlib_file(str);
+  return 0;
+}
