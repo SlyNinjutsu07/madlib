@@ -56,6 +56,7 @@ void add_madlib_file(char *file_name){
     return;
   }
 
+  //Fix formatting by getting rid of the '\n'
   file_name[strcspn(file_name, "\n")] = '\0';
   char file_new_name[36];
   snprintf(file_new_name, sizeof file_new_name, "madlibs/%s.txt", file_name);
@@ -65,14 +66,8 @@ void add_madlib_file(char *file_name){
   buffer[0] = '\0';
 
   printf("Type out your Madlib (Please look at README for information how to type it out):\n\n");
-  fscanf(stdin, "%s", buffer);  
-  fwrite(buffer, sizeof buffer, strlen(buffer), f);
+  fgets(buffer, sizeof buffer, stdin);
+  fwrite(buffer, 1, strlen(buffer), f);
 }
 
-int main(void){
 
-  char str[16];
-  fgets(str, 16, stdin);
-  add_madlib_file(str);
-  return 0;
-}

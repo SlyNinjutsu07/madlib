@@ -16,6 +16,16 @@ int main(void) {
   char buffer[512];
   FILE *f;
 
+  printf("Would you like to add a new madlib file?(y/n): ");
+  char input1[10];
+  char i = strcmp(fgets(input1, 10, stdin), "y\n") == 0 ? 'y' : 'n';
+  if(i == 'y'){
+    char madlib_name[36];
+    printf("Input a name for your file: ");
+    fgets(madlib_name, 36, stdin);
+    add_madlib_file(madlib_name);
+  }
+
   int index = 0;
   file *madlibs = alloc_file("./madlibs");
 
