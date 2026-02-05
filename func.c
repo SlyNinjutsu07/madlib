@@ -6,7 +6,11 @@
 
 /* Frees all memory */
 void free_all(file arr[], int size){
-  
+  file *p = arr;
+  for(int i = 0; i < size; i++){
+    free(p);
+    p++;
+  }
 }
 
 /* Returns the # of spots to fill with words,

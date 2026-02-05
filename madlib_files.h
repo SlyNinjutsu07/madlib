@@ -9,3 +9,5 @@ typedef struct {
 file *alloc_file(char *path);
 
 void add_madlib_file(char *file_name);
+
+int get_dir_len();

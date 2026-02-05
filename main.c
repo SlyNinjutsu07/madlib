@@ -10,21 +10,12 @@ void print_word_options(file *madlib) {
 }
 
 void clear_term();
+void ask_for_madlib();
 
 int main(void) {
 
   char buffer[512];
   FILE *f;
-
-  printf("Would you like to add a new madlib file?(y/n): ");
-  char input1[10];
-  char i = strcmp(fgets(input1, 10, stdin), "y\n") == 0 ? 'y' : 'n';
-  if(i == 'y'){
-    char madlib_name[36];
-    printf("Input a name for your file: ");
-    fgets(madlib_name, 36, stdin);
-    add_madlib_file(madlib_name);
-  }
 
   int index = 0;
   file *madlibs = alloc_file("./madlibs");
@@ -36,7 +27,9 @@ int main(void) {
     while (1) {
       f = fopen(madlibs[index].file_name, "r");
       // File check
-      if (f == NULL) {
+      if (f == NULL && index > 0)
+        ask_for_madlib();
+      else if (f == NULL){
         perror("File doesn't exit");
         return 0;
       }
@@ -57,6 +50,7 @@ int main(void) {
         index++;
       else if(strcmp(input, "n\n") == 0){
         printf("Quitting...\n");
+        ask_for_madlib();
         exit(0);
       }
       else{
@@ -65,6 +59,8 @@ int main(void) {
       }
     }
   }
+
+  free_all(madlibs, &get_dir_len);
 
   return 0;
 }
@@ -78,4 +74,15 @@ void clear_term() {
 #endif
 }
 
-
+void ask_for_madlib(){
+  printf("No more available madlibs...\n");
+  printf("Would you like to add a new madlib file?(y/n): ");
+  char input1[10];
+  char i = strcmp(fgets(input1, 10, stdin), "y\n") == 0 ? 'y' : 'n';
+  if(i == 'y'){
+    char madlib_name[36];
+    printf("Input a name for your file: ");
+    fgets(madlib_name, 36, stdin);
+    add_madlib_file(madlib_name);
+  }
+}

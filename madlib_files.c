@@ -70,4 +70,15 @@ void add_madlib_file(char *file_name){
   fwrite(buffer, 1, strlen(buffer), f);
 }
 
+int get_dir_len(){
+  DIR *dir = opendir("./madlibs");
+  struct dirent *entry;
+
+  int count = 0;
+  while((entry = readdir(dir)) != NULL)
+    count++;
+
+  return count;
+}
+
 
